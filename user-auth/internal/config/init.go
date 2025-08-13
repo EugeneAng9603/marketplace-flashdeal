@@ -16,9 +16,10 @@ type Config struct {
 	DBSource          string
 	Internal_API_Key1 string
 	ServerAddress     string
+	AccessTokenSecret string
 }
 
-const DBName_DEV = "user"
+const DBName_DEV = "users"
 const DBName_PROD = "user_prod"
 
 var dbNames = map[string]string{
@@ -74,6 +75,7 @@ func loadConfigFromViper() {
 		DBSource:          dbSource,
 		Internal_API_Key1: os.Getenv("INTERNAL_API_KEY1"),
 		ServerAddress:     viper.GetString("server_addr"),
+		AccessTokenSecret: os.Getenv("ACCESS_TOKEN_SECRET"),
 	}
 }
 

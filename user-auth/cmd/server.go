@@ -21,10 +21,10 @@ const (
 )
 
 // Start HTTP server and handle graceful shutdown with GIN router
-func RunServer(ctx context.Context, addr string, ctrl controller.Controller, apiKey string) error {
+func RunServer(ctx context.Context, addr string, ctrl controller.Controller, apiKey string, accessTokenSecret string) error {
 	logPrefix := "[RunServer]"
 	r := gin.Default()
-	router.SetupRouter(r, ctrl, apiKey)
+	router.SetupRouter(r, ctrl, apiKey, accessTokenSecret)
 
 	server := &http.Server{
 		Addr:         addr,

@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"os/signal"
 	"syscall"
@@ -18,7 +17,6 @@ func Start() {
 	config.InitConfig()
 	cfg := config.GetConfig()
 	// Initialize databases
-	fmt.Printf("config is %+v\n", cfg)
 	mysqlDB := db.InitDB(cfg.DBSource)
 	mysqlRepo := repo.NewMySQLRepo(mysqlDB)
 	// Initialize service and controller layer
@@ -30,7 +28,7 @@ func Start() {
 	defer cancel()
 	log.Printf("%s[Service started successfully]", logPrefix)
 	// Run HTTP server
-	if err := RunServer(ctx, cfg.ServerAddress, ctrl, cfg.Internal_API_Key1); err != nil {
+	if err := RunServer(ctx, cfg.ServerAddress, ctrl, cfg.Internal_API_Key1, cfg.AccessTokenSecret); err != nil {
 		log.Fatalf("%s[Server exited with error: %v]", logPrefix, err)
 	}
 
